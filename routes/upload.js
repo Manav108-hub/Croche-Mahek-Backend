@@ -2,6 +2,8 @@ import express from 'express';
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { protect, adminOnly } from '../middleware/auth.js';
+import { deleteFromCloudinary, deleteMultipleFromCloudinary } from './upload.js';
+
 
 const router = express.Router();
 
@@ -110,5 +112,29 @@ router.post('/multiple', protect, adminOnly, upload.array('images', 10), async (
     });
   }
 });
+
+// ================================
+// 🗑️ Cloudinary Deletion Helpers
+// ================================
+
+export async function deleteFromCloudinary(public_id) {
+  try {
+    await cloudinary.uploader.destroy(public_id);
+    console.log(`✅ Deleted image: ${public_id}`);
+  } catch (error) {
+    console.error(`❌ Error deleting image (${public_id}):`, error.message);
+  }
+}
+
+export async function deleteMultipleFromCloudinary(publicIds) {
+  try {
+    const deletePromises = publicIds.map(id => cloudinary.uploader.destroy(id));
+    await Promise.all(deletePromises);
+    console.log(`✅ Deleted ${publicIds.length} images`);
+  } catch (error) {
+    console.error('❌ Error deleting multiple images:', error.message);
+  }
+}
+
 
 export default router;

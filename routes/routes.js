@@ -2,7 +2,7 @@
 import express from 'express';
 import { Category, Product } from '../models/model.js';
 import { protect, adminOnly, rateLimit } from '../middleware/auth.js';
-import { deleteFromCloudinary, deleteMultipleFromCloudinary } from './upload.js';
+import { deleteFromCloudinary, deleteMultipleFromCloudinary } from '../utils/cloudinaryHelpers.js';
 
 
 const router = express.Router();

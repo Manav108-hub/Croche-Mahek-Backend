@@ -2,7 +2,6 @@ import express from 'express';
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { protect, adminOnly } from '../middleware/auth.js';
-import { deleteFromCloudinary, deleteMultipleFromCloudinary } from './upload.js';
 
 
 const router = express.Router();

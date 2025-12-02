@@ -120,7 +120,7 @@ const authRoutes = await import('./routes/auth.js');
 const appRoutes = await import('./routes/routes.js');
 const uploadRoutes = await import('./routes/upload.js');
 
-app.use('/api/auth', authLimiter, authRoutes.default);
+app.use('/api/auth', authRoutes.default);
 app.use('/api', appRoutes.default);
 app.use('/api/upload', uploadRoutes.default);
 
